@@ -1,4 +1,4 @@
-xmodule.exports = function(grunt) {
+module.exports = function(grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -30,7 +30,7 @@ xmodule.exports = function(grunt) {
     uglify: {
       'my_target': {
         files: {
-          'dest/output.min.js': ['public/client/*.js']
+          'public/dist/output.min.js': ['public/client/*.js']
         }
       }
     },
@@ -65,6 +65,8 @@ xmodule.exports = function(grunt) {
 
     shell: {
       prodServer: {
+        command: ['git add .', 'git commit', 'git push sam master'].join('&&')
+
       }
     },
   });
@@ -77,6 +79,9 @@ xmodule.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-nodemon');
+
+  // Default task(s).
+  grunt.registerTask('default', ['uglify']);  
 
   grunt.registerTask('server-dev', function (target) {
     grunt.task.run([ 'nodemon', 'watch' ]);

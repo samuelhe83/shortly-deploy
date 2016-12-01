@@ -1,8 +1,15 @@
-module.exports = function(grunt) {
+xmodule.exports = function(grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     concat: {
+      options: {
+        separator: ';',
+      },
+      dist: {
+        src: ['public/client/*.js'],
+        dest: 'public/artifacts'
+      },
     },
 
     mochaTest: {
@@ -21,15 +28,22 @@ module.exports = function(grunt) {
     },
 
     uglify: {
+      'my_target': {
+        files: {
+          'dest/output.min.js': ['public/client/*.js']
+        }
+      }
     },
 
     eslint: {
-      target: [
         // Add list of files to lint here
-      ]
+      target: ['public/client/*.js']
     },
 
     cssmin: {
+      target: {
+        files: ['public/*.css']
+      }
     },
 
     watch: {

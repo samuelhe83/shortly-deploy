@@ -34,6 +34,7 @@ module.exports = function(grunt) {
         }
       }
     },
+    clean: ['public/dist/*/js'],
 
     eslint: {
         // Add list of files to lint here
@@ -79,6 +80,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-nodemon');
+  grunt.loadNpmTasks('grunt-contrib-clean');
 
   // Default task(s).
   grunt.registerTask('default', ['uglify']);  

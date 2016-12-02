@@ -66,9 +66,20 @@ module.exports = function(grunt) {
 
     shell: {
       prodServer: {
-        command: ['git add .', 'git commit', 'git push sam master'].join('&&')
+        command: [
+          'ssh root@128.199.141.80',
+          'nodemon'
+        ]
 
-      }
+      },
+      deploy: {
+        command: [
+          'git add .', 
+          'git commit', 
+          'git push live master'
+        ]
+        .join('&&')
+      }      
     },
   });
 
@@ -94,15 +105,20 @@ module.exports = function(grunt) {
   ////////////////////////////////////////////////////
 
   grunt.registerTask('test', [
+    'eslint',
     'mochaTest'
   ]);
 
   grunt.registerTask('build', [
+    'clean',
+    'uglify',
+    'concat'
   ]);
 
   grunt.registerTask('upload', function(n) {
     if (grunt.option('prod')) {
       // add your production server task here
+      'shell:prodServer';
     } else {
       grunt.task.run([ 'server-dev' ]);
     }

@@ -42,7 +42,8 @@ User.prototype.comparePassword = function(attemptedPassword, callback) {
       callback(null, isMatch);
     }
   });
-  
+};
+
 Users.pre('save', function(next) {
   var cipher = Promise.promisify(bcrypt.hash);
   return cipher(this.password, null, null).bind(this)
@@ -53,17 +54,3 @@ Users.pre('save', function(next) {
 });
 
 module.exports = User;
-
-
-// db.knex.schema.hasTable('users').then(function(exists) {
-//   if (!exists) {
-//     db.knex.schema.createTable('users', function (user) {
-//       user.increments('id').primary();
-//       user.string('username', 100).unique();
-//       user.string('password', 100);
-//       user.timestamps();
-//     }).then(function (table) {
-//       console.log('Created Table', table);
-//     });
-//   }
-// });
